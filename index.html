@@ -1,4 +1,3 @@
-<!-- COMIENZO DEL ARCHIVO HTML -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,13 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portes, Mudanzas y Vaciados en Sevilla</title>
   <style>
-    /* ... Estilos que ya tienes (sin cambios) ... */
-    /* (omitidos aquí por espacio, pero todos tus estilos permanecen igual) */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    ul {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    table th, table td {
+      border-bottom: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      position: relative;
+      top: 1px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      display: inline-block;
+      text-align: center;
+      margin-top: 20px;
+    }
+    #resultado {
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+      margin-top: 10px;
+      text-align: center;
+    }
     #map {
       height: 350px;
       width: 100%;
-      border-radius: 8px;
-      margin-bottom: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -23,29 +107,56 @@
       Servicio rápido, profesional y económico en Sevilla y alrededores. Llámanos o escríbenos por WhatsApp para presupuesto inmediato.
     </p>
 
-    <!-- ... Servicios y Tarifas omitidos (sin cambios) ... -->
+    <h2>📋 Servicios</h2>
+    <ul>
+      <li>✅ Portes económicos</li>
+      <li>✅ Mudanzas completas con carga y descarga</li>
+      <li>✅ Vaciado de pisos, naves y trasteros</li>
+      <li>✅ Limpieza post-vaciado disponible</li>
+      <li>✅ Transporte de muebles y electrodomésticos</li>
+      <li>✅ Pintura de pisos, naves y trasteros</li>
+    </ul>
+
+    <h2>💰 Tarifas orientativas</h2>
+    <table>
+      <thead>
+        <tr><th>Servicio</th><th>Precio desde</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Porte local (sólo transporte)</td><td>—</td></tr>
+        <tr><td>Porte + carga y descarga</td><td>—</td></tr>
+        <tr><td>Mudanza pequeña en Sevilla</td><td>—</td></tr>
+        <tr><td>Vaciado de piso 60–90 m²</td><td>—</td></tr>
+        <tr><td>Vaciado de nave</td><td>—</td></tr>
+        <tr><td>Limpieza post-vaciado</td><td>—</td></tr>
+        <tr><td>Pintura de piso, trastero o nave</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h2>📍 Marca tu ruta en el mapa</h2>
+    <div id="map"></div>
 
     <h2>💬 Calcula tu presupuesto</h2>
     <div style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-      <div id="map"></div>
-
       <label for="nombre">Nombre completo:</label>
       <input type="text" id="nombre" placeholder="Tu nombre" />
 
       <label for="telefono">Número WhatsApp:</label>
-      <input type="tel" id="telefono" placeholder="Ej: tu numero" />
+      <input type="tel" id="telefono" placeholder="Ej: tu número" />
 
-      <!-- Opciones de servicio -->
-      <!-- ... (sin cambios) ... -->
+      <label><input type="checkbox" class="option" data-name="Porte local (solo transporte)"> Porte local (solo transporte)</label>
+      <label><input type="checkbox" class="option" data-name="Carga y descarga"> Carga y descarga</label>
+      <label><input type="checkbox" class="option" data-name="Mudanza en Sevilla"> Mudanza en Sevilla</label>
+      <label><input type="checkbox" class="option" data-name="Vaciado piso mediano"> Vaciado piso mediano</label>
+      <label><input type="checkbox" class="option" data-name="Vaciado de nave"> Vaciado de nave</label>
+      <label><input type="checkbox" class="option" data-name="Limpieza post-vaciado"> Limpieza post-vaciado</label>
+      <label><input type="checkbox" class="option" data-name="Pintura de piso/trastero/nave"> Pintura de piso/trastero/nave</label><br><br>
 
       <label for="origen">Dirección origen:</label>
-      <input type="text" id="origen" placeholder="Selecciona en el mapa" readonly />
+      <input type="text" id="origen" placeholder="Marca en el mapa" readonly />
 
       <label for="destino">Dirección destino:</label>
-      <input type="text" id="destino" placeholder="Selecciona en el mapa" readonly />
-
-      <label for="kilometros">Distancia estimada (kms):</label>
-      <input type="text" id="kilometros" placeholder="Se calcula automáticamente" readonly />
+      <input type="text" id="destino" placeholder="Marca en el mapa" readonly />
 
       <label for="notas">Notas adicionales:</label>
       <textarea id="notas" placeholder="Ej: Es una mudanza con cajas, sofá y nevera. Hay ascensor."></textarea>
@@ -56,63 +167,74 @@
       <p style="text-align:center;">💬 Te mandamos el presupuesto por WhatsApp</p>
     </div>
 
-    <!-- Contacto -->
-    <!-- ... (sin cambios) ... -->
+    <h2>📞 Contacto directo</h2>
+    <p style="font-size: 18px;">
+      📞 <strong>WhatsApp:</strong> <a href="https://wa.me/34698373471" target="_blank">Haz clic aquí para escribirnos</a><br />
+      📧 <strong>Email:</strong> <a href="mailto:portemudanzayvaciadoprosevilla@gmail.com">portemudanzayvaciadoprosevilla@gmail.com</a><br />
+      📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/portemudanzayvaciadoprosevilla" target="_blank">@portemudanzayvaciadoprosevilla</a><br />
+      📍 <strong>Ubicación:</strong> Sevilla y alrededores
+    </p>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="https://wa.me/34698373471" target="_blank" class="whatsapp-button">💬 Escríbenos por WhatsApp</a>
+    </div>
   </div>
 
-  <!-- Scripts -->
   <script>
-    // Mapa interactivo con Google Maps
-    let map, geocoder, directionsService;
-    let markerCount = 0;
-    let origenLatLng, destinoLatLng;
+    let map, originMarker, destinationMarker, directionsService, directionsRenderer, geocoder;
 
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 37.3826, lng: -5.9963 },
-        zoom: 10,
+        zoom: 11,
       });
 
       geocoder = new google.maps.Geocoder();
       directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+      directionsRenderer.setMap(map);
 
       map.addListener("click", (e) => {
-        if (markerCount === 0) {
-          origenLatLng = e.latLng;
-          geocodeLatLng(origenLatLng, "origen");
-          markerCount++;
+        if (!originMarker) {
+          originMarker = new google.maps.Marker({ position: e.latLng, map: map, label: "A" });
+          geocodePosition(e.latLng, "origen");
+        } else if (!destinationMarker) {
+          destinationMarker = new google.maps.Marker({ position: e.latLng, map: map, label: "B" });
+          geocodePosition(e.latLng, "destino");
+          calcularRuta();
         } else {
-          destinoLatLng = e.latLng;
-          geocodeLatLng(destinoLatLng, "destino");
-          calcularDistancia(origenLatLng, destinoLatLng);
-          markerCount = 0;
+          originMarker.setMap(null);
+          destinationMarker.setMap(null);
+          originMarker = null;
+          destinationMarker = null;
+          directionsRenderer.set('directions', null);
+          document.getElementById("origen").value = "";
+          document.getElementById("destino").value = "";
         }
       });
     }
 
-    function geocodeLatLng(latlng, campo) {
+    function geocodePosition(latlng, inputId) {
       geocoder.geocode({ location: latlng }, (results, status) => {
         if (status === "OK" && results[0]) {
-          document.getElementById(campo).value = results[0].formatted_address;
+          document.getElementById(inputId).value = results[0].formatted_address;
         }
       });
     }
 
-    function calcularDistancia(origen, destino) {
-      directionsService.route(
-        {
-          origin: origen,
-          destination: destino,
-          travelMode: google.maps.TravelMode.DRIVING,
-        },
-        (response, status) => {
-          if (status === "OK") {
-            const distanciaTexto = response.routes[0].legs[0].distance.text;
-            document.getElementById("kilometros").value = distanciaTexto;
-            alert("Distancia: " + distanciaTexto);
-          }
+    function calcularRuta() {
+      const request = {
+        origin: originMarker.getPosition(),
+        destination: destinationMarker.getPosition(),
+        travelMode: google.maps.TravelMode.DRIVING,
+      };
+      directionsService.route(request, (result, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(result);
+          const distancia = result.routes[0].legs[0].distance.text;
+          alert("Distancia estimada: " + distancia);
         }
-      );
+      });
     }
 
     function enviarSolicitud() {
@@ -120,31 +242,32 @@
       const telefono = document.getElementById('telefono').value.trim();
       const origen = document.getElementById('origen').value.trim();
       const destino = document.getElementById('destino').value.trim();
-      const distancia = document.getElementById('kilometros').value.trim();
       const notas = document.getElementById('notas').value.trim();
+
+      if (!nombre || !telefono || !origen || !destino) {
+        alert('Por favor, completa todos los campos obligatorios.');
+        return;
+      }
 
       const opciones = document.querySelectorAll('.option');
       let seleccionadas = [];
       opciones.forEach(op => {
-        if (op.checked) {
-          seleccionadas.push(op.dataset.name);
-        }
+        if (op.checked) seleccionadas.push(op.dataset.name);
       });
 
+      if (seleccionadas.length === 0) {
+        alert('Por favor, selecciona al menos un servicio.');
+        return;
+      }
+
       const serviciosTexto = seleccionadas.join(', ');
+      const mensajeWhats = `Hola, soy ${nombre}.\nSolicito presupuesto para:\nServicios: ${serviciosTexto}\nDirección origen: ${origen}\nDirección destino: ${destino}\nNotas: ${notas}\nNúmero de contacto: ${telefono}`;
 
-      const mensajeWhats = `Hola, soy ${nombre}.
-Solicito presupuesto para:
-Servicios: ${serviciosTexto}
-Dirección origen: ${origen}
-Dirección destino: ${destino}
-Distancia estimada: ${distancia}
-Notas: ${notas}
-Número de contacto: ${telefono}`;
+      const numeroTuWhats = '34698373471';
+      const urlWhats = `https://wa.me/${numeroTuWhats}?text=${encodeURIComponent(mensajeWhats)}`;
+      window.open(urlWhats, '_blank');
 
-      const numeroWhatsApp = '34698373471';
-      window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeWhats)}`, '_blank');
-
+      // Envío a Formspree
       fetch('https://formspree.io/f/mwpqwvlr', {
         method: 'POST',
         headers: {
@@ -157,27 +280,24 @@ Número de contacto: ${telefono}`;
           servicios: serviciosTexto,
           origen,
           destino,
-          distancia,
           notas
         })
       })
       .then(response => {
         if (response.ok) {
-          document.getElementById('resultado').textContent = 'Solicitud enviada correctamente.';
+          document.getElementById('resultado').textContent = '✅ Solicitud enviada. Revisa WhatsApp.';
         } else {
-          document.getElementById('resultado').textContent = 'Error al enviar. WhatsApp sí se ha abierto.';
+          document.getElementById('resultado').textContent = '❌ Falló el envío del correo, pero se abrió WhatsApp.';
         }
       })
-      .catch(() => {
-        document.getElementById('resultado').textContent = 'Error enviando email, pero WhatsApp se ha abierto.';
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('resultado').textContent = '❌ Error al enviar. Intenta de nuevo.';
       });
     }
   </script>
 
   <!-- Google Maps API -->
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVPHqQDXL4vVijvq2vg3KeGKwgR-VDgu8&callback=initMap">
-  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVPHqQDXL4vVijvq2vg3KeGKwgR-VDgu8&callback=initMap" async defer></script>
 </body>
 </html>
-<!-- FIN DEL ARCHIVO HTML -->
