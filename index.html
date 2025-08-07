@@ -3,58 +3,220 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prueba Autocompletado Direcciones - Portes Sevilla</title>
+  <title>Portes, Mudanzas y Vaciados en Sevilla - Formulario con Mapa</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f4f4;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
     }
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
-    input {
+    input[type="text"], input[type="tel"], textarea {
       width: 100%;
       padding: 8px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      margin-top: 5px;
       box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #map-origen, #map-destino {
+      width: 100%;
+      height: 250px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .map-label {
+      margin-top: 15px;
+      font-weight: normal;
+      font-size: 12px;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>Selecciona direcciones con autocompletado</h1>
+  <div class="container">
+    <h1>🚚 Solicita Presupuesto - Portes, Mudanzas y Vaciados en Sevilla</h1>
 
-  <label for="origen">Dirección Origen:</label>
-  <input id="origen" type="text" placeholder="Introduce dirección origen" />
+    <label for="nombre">Nombre completo:</label>
+    <input type="text" id="nombre" placeholder="Tu nombre" />
 
-  <label for="destino">Dirección Destino:</label>
-  <input id="destino" type="text" placeholder="Introduce dirección destino" />
+    <label for="telefono">Número WhatsApp:</label>
+    <input type="tel" id="telefono" placeholder="Ej: 698373471" />
+
+    <label>Servicios:</label>
+    <label><input type="checkbox" class="option" data-name="Porte local (solo transporte)"> Porte local (solo transporte</label>
+    <label><input type="checkbox" class="option" data-name="Carga y descarga"> Carga y descarga</label>
+    <label><input type="checkbox" class="option" data-name="Mudanza en Sevilla"> Mudanza en Sevilla</label>
+    <label><input type="checkbox" class="option" data-name="Vaciado piso mediano"> Vaciado piso mediano</label>
+    <label><input type="checkbox" class="option" data-name="Vaciado de nave"> Vaciado de nave</label>
+    <label><input type="checkbox" class="option" data-name="Limpieza post-vaciado"> Limpieza post-vaciado</label>
+    <label><input type="checkbox" class="option" data-name="Pintura de piso/trastero/nave"> Pintura de piso/trastero/nave</label>
+
+    <label for="origen">Dirección origen:</label>
+    <input type="text" id="origen" placeholder="Introduce dirección origen" autocomplete="off" />
+    <div id="map-origen"></div>
+    <small class="map-label">Usa el mapa para ajustar la ubicación de origen (arrastra el marcador)</small>
+
+    <label for="destino">Dirección destino:</label>
+    <input type="text" id="destino" placeholder="Introduce dirección destino" autocomplete="off" />
+    <div id="map-destino"></div>
+    <small class="map-label">Usa el mapa para ajustar la ubicación de destino (arrastra el marcador)</small>
+
+    <label for="notas">Notas adicionales:</label>
+    <textarea id="notas" placeholder="Ej: Es una mudanza con cajas, sofá y nevera. Hay ascensor."></textarea>
+
+    <button onclick="enviarSolicitud()">Solicitar Presupuesto</button>
+
+    <p id="resultado" style="font-weight:bold; text-align:center; margin-top:15px;"></p>
+  </div>
 
   <script>
-    let autocompleteOrigen;
-    let autocompleteDestino;
+    let mapOrigen, mapDestino;
+    let markerOrigen, markerDestino;
+    let geocoder;
 
-    function initAutocomplete() {
-      autocompleteOrigen = new google.maps.places.Autocomplete(
-        document.getElementById('origen'),
-        { types: ['geocode'], componentRestrictions: { country: 'es' } }
-      );
+    function initMap() {
+      geocoder = new google.maps.Geocoder();
 
-      autocompleteDestino = new google.maps.places.Autocomplete(
-        document.getElementById('destino'),
-        { types: ['geocode'], componentRestrictions: { country: 'es' } }
-      );
+      const sevilla = { lat: 37.3886, lng: -5.9823 };
+
+      // Mapa Origen
+      mapOrigen = new google.maps.Map(document.getElementById("map-origen"), {
+        zoom: 12,
+        center: sevilla,
+      });
+      markerOrigen = new google.maps.Marker({
+        position: sevilla,
+        map: mapOrigen,
+        draggable: true,
+      });
+
+      // Mapa Destino
+      mapDestino = new google.maps.Map(document.getElementById("map-destino"), {
+        zoom: 12,
+        center: sevilla,
+      });
+      markerDestino = new google.maps.Marker({
+        position: sevilla,
+        map: mapDestino,
+        draggable: true,
+      });
+
+      // Actualizar inputs al mover marcadores
+      markerOrigen.addListener('dragend', () => {
+        geocoder.geocode({ location: markerOrigen.getPosition() }, (results, status) => {
+          if (status === 'OK' && results[0]) {
+            document.getElementById('origen').value = results[0].formatted_address;
+          }
+        });
+      });
+      markerDestino.addListener('dragend', () => {
+        geocoder.geocode({ location: markerDestino.getPosition() }, (results, status) => {
+          if (status === 'OK' && results[0]) {
+            document.getElementById('destino').value = results[0].formatted_address;
+          }
+        });
+      });
+
+      // Autocompletar con Google Places
+      const inputOrigen = document.getElementById('origen');
+      const autocompleteOrigen = new google.maps.places.Autocomplete(inputOrigen);
+      autocompleteOrigen.bindTo('bounds', mapOrigen);
+      autocompleteOrigen.addListener('place_changed', () => {
+        const place = autocompleteOrigen.getPlace();
+        if (!place.geometry) return;
+        mapOrigen.setCenter(place.geometry.location);
+        mapOrigen.setZoom(15);
+        markerOrigen.setPosition(place.geometry.location);
+      });
+
+      const inputDestino = document.getElementById('destino');
+      const autocompleteDestino = new google.maps.places.Autocomplete(inputDestino);
+      autocompleteDestino.bindTo('bounds', mapDestino);
+      autocompleteDestino.addListener('place_changed', () => {
+        const place = autocompleteDestino.getPlace();
+        if (!place.geometry) return;
+        mapDestino.setCenter(place.geometry.location);
+        mapDestino.setZoom(15);
+        markerDestino.setPosition(place.geometry.location);
+      });
     }
+
+    function enviarSolicitud() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const origen = document.getElementById('origen').value.trim();
+      const destino = document.getElementById('destino').value.trim();
+      const notas = document.getElementById('notas').value.trim();
+
+      if (!nombre || !telefono || !origen || !destino) {
+        alert('Por favor, completa todos los campos obligatorios.');
+        return;
+      }
+
+      const opciones = document.querySelectorAll('.option');
+      let seleccionadas = [];
+      opciones.forEach(op => {
+        if (op.checked) {
+          seleccionadas.push(op.dataset.name);
+        }
+      });
+
+      if (seleccionadas.length === 0) {
+        alert('Por favor, selecciona al menos un servicio.');
+        return;
+      }
+
+      const mensajeWhats = `Hola, soy ${nombre}.
+Solicito presupuesto para:
+Servicios: ${seleccionadas.join(', ')}
+Dirección origen: ${origen}
+Dirección destino: ${destino}
+Notas: ${notas}
+Número para contacto: ${telefono}`;
+
+      const numeroTuWhats = '34698373471';
+      const urlWhats = `https://wa.me/${numeroTuWhats}?text=${encodeURIComponent(mensajeWhats)}`;
+      window.open(urlWhats, '_blank');
+
+      document.getElementById('resultado').textContent = 'Se ha abierto WhatsApp con tu solicitud. Gracias por contactarnos.';
+    }
+
+    window.initMap = initMap;
   </script>
 
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&libraries=places&callback=initAutocomplete"
-    async
-    defer
-  ></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVPHqQDXL4vVijvq2vg3KeGKwgR-VDgu8&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>
