@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portes, Mudanzas y Vaciados en Sevilla - Formulario con Mapa</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portes, Mudanzas y Vaciados en Sevilla</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,184 +22,157 @@
     h1, h2 {
       text-align: center;
     }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    ul {
+      font-size: 16px;
+      line-height: 1.6;
     }
-    input[type="text"], input[type="tel"], textarea {
+    table {
       width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    table th, table td {
+      border-bottom: 1px solid #ccc;
       padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 14px;
     }
     button {
-      margin-top: 20px;
-      width: 100%;
       background-color: #007BFF;
       color: white;
-      font-size: 16px;
-      padding: 12px;
+      padding: 10px 15px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #map-origen, #map-destino {
-      width: 100%;
-      height: 250px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .map-label {
-      margin-top: 15px;
-      font-weight: normal;
-      font-size: 12px;
-      color: #555;
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      display: inline-block;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚚 Solicita Presupuesto - Portes, Mudanzas y Vaciados en Sevilla</h1>
+<div class="container">
+  <h1>🚚 Portes, Mudanzas y Vaciados en Sevilla</h1>
+  <p style="text-align: center; font-size: 18px;">
+    Servicio rápido, profesional y económico en Sevilla y alrededores. Llámanos o escríbenos por WhatsApp para presupuesto inmediato.
+  </p>
 
+  <h2>📋 Servicios</h2>
+  <ul>
+    <li>✅ Portes económicos</li>
+    <li>✅ Mudanzas completas con carga y descarga</li>
+    <li>✅ Vaciado de pisos, naves y trasteros</li>
+    <li>✅ Limpieza post-vaciado disponible</li>
+    <li>✅ Transporte de muebles y electrodomésticos</li>
+    <li>✅ Pintura de pisos, naves y trasteros</li>
+  </ul>
+
+  <h2>💰 Tarifas orientativas</h2>
+  <table>
+    <thead>
+      <tr><th>Servicio</th><th style="text-align: center;">Precio desde</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Porte local (sólo transporte)</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Porte + carga y descarga</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Mudanza pequeña en Sevilla</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Vaciado de piso 60–90 m²</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Vaciado de nave</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Limpieza post-vaciado</td><td style="text-align: center;">—</td></tr>
+      <tr><td>Pintura de piso, trastero o nave</td><td style="text-align: center;">—</td></tr>
+    </tbody>
+  </table>
+
+  <h2>💬 Calcula tu presupuesto</h2>
+  <div style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
     <label for="nombre">Nombre completo:</label>
-    <input type="text" id="nombre" placeholder="Tu nombre" />
+    <input type="text" id="nombre" placeholder="Tu nombre">
 
     <label for="telefono">Número WhatsApp:</label>
-    <input type="tel" id="telefono" placeholder="Ej: 698373471" />
+    <input type="tel" id="telefono" placeholder="Ej: 698373471">
 
-    <label>Servicios:</label>
-    <label><input type="checkbox" class="option" data-name="Porte local (solo transporte)"> Porte local (solo transporte</label>
-    <label><input type="checkbox" class="option" data-name="Carga y descarga"> Carga y descarga</label>
-    <label><input type="checkbox" class="option" data-name="Mudanza en Sevilla"> Mudanza en Sevilla</label>
-    <label><input type="checkbox" class="option" data-name="Vaciado piso mediano"> Vaciado piso mediano</label>
-    <label><input type="checkbox" class="option" data-name="Vaciado de nave"> Vaciado de nave</label>
-    <label><input type="checkbox" class="option" data-name="Limpieza post-vaciado"> Limpieza post-vaciado</label>
-    <label><input type="checkbox" class="option" data-name="Pintura de piso/trastero/nave"> Pintura de piso/trastero/nave</label>
+    <label><input type="checkbox" class="option" data-price="30" data-name="Porte local (solo transporte)"> Porte local (solo transporte)</label><br>
+    <label><input type="checkbox" class="option" data-price="20" data-name="Carga y descarga"> Carga y descarga</label><br>
+    <label><input type="checkbox" class="option" data-price="50" data-name="Mudanza en Sevilla"> Mudanza en Sevilla</label><br>
+    <label><input type="checkbox" class="option" data-price="80" data-name="Vaciado piso mediano"> Vaciado piso mediano</label><br>
+    <label><input type="checkbox" class="option" data-price="100" data-name="Vaciado de nave"> Vaciado de nave</label><br>
+    <label><input type="checkbox" class="option" data-price="60" data-name="Limpieza post-vaciado"> Limpieza post-vaciado</label><br>
+    <label><input type="checkbox" class="option" data-price="90" data-name="Pintura de piso/trastero/nave"> Pintura de piso/trastero/nave</label><br><br>
 
     <label for="origen">Dirección origen:</label>
-    <input type="text" id="origen" placeholder="Introduce dirección origen" autocomplete="off" />
-    <div id="map-origen"></div>
-    <small class="map-label">Usa el mapa para ajustar la ubicación de origen (arrastra el marcador)</small>
+    <input type="text" id="origen" placeholder="Introduce dirección origen">
 
     <label for="destino">Dirección destino:</label>
-    <input type="text" id="destino" placeholder="Introduce dirección destino" autocomplete="off" />
-    <div id="map-destino"></div>
-    <small class="map-label">Usa el mapa para ajustar la ubicación de destino (arrastra el marcador)</small>
+    <input type="text" id="destino" placeholder="Introduce dirección destino">
 
     <label for="notas">Notas adicionales:</label>
     <textarea id="notas" placeholder="Ej: Es una mudanza con cajas, sofá y nevera. Hay ascensor."></textarea>
 
     <button onclick="enviarSolicitud()">Solicitar Presupuesto</button>
 
-    <p id="resultado" style="font-weight:bold; text-align:center; margin-top:15px;"></p>
+    <p id="resultado" style="font-size: 18px; font-weight: bold; margin-top: 10px;"></p>
+    <p>💬 Te mandamos el presupuesto por WhatsApp </p>
   </div>
 
-  <script>
-    let mapOrigen, mapDestino;
-    let markerOrigen, markerDestino;
-    let geocoder;
+  <h2>📞 Contacto directo</h2>
+  <p style="font-size: 18px;">
+    📞 <strong>WhatsApp:</strong> <a href="https://wa.me/34698373471" target="_blank">Haz clic aquí para escribirnos</a><br>
+    📧 <strong>Email:</strong> <a href="mailto:portemudanzayvaciadoprosevilla@gmail.com">portemudanzayvaciadoprosevilla@gmail.com</a><br>
+    📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/portemudanzayvaciadoprosevilla" target="_blank">@portemudanzayvaciadoprosevilla</a><br>
+    📍 <strong>Ubicación:</strong> Sevilla y alrededores
+  </p>
 
-    function initMap() {
-      geocoder = new google.maps.Geocoder();
+  <div style="text-align: center; margin-top: 30px;">
+    <a href="https://wa.me/34698373471" target="_blank" class="whatsapp-button">
+      💬 Escríbenos por WhatsApp
+    </a>
+  </div>
+</div>
 
-      const sevilla = { lat: 37.3886, lng: -5.9823 };
+<script>
+function enviarSolicitud() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const origen = document.getElementById('origen').value.trim();
+  const destino = document.getElementById('destino').value.trim();
+  const notas = document.getElementById('notas').value.trim();
 
-      // Mapa Origen
-      mapOrigen = new google.maps.Map(document.getElementById("map-origen"), {
-        zoom: 12,
-        center: sevilla,
-      });
-      markerOrigen = new google.maps.Marker({
-        position: sevilla,
-        map: mapOrigen,
-        draggable: true,
-      });
+  if (!nombre || !telefono || !origen || !destino) {
+    alert('Por favor, completa todos los campos obligatorios.');
+    return;
+  }
 
-      // Mapa Destino
-      mapDestino = new google.maps.Map(document.getElementById("map-destino"), {
-        zoom: 12,
-        center: sevilla,
-      });
-      markerDestino = new google.maps.Marker({
-        position: sevilla,
-        map: mapDestino,
-        draggable: true,
-      });
-
-      // Actualizar inputs al mover marcadores
-      markerOrigen.addListener('dragend', () => {
-        geocoder.geocode({ location: markerOrigen.getPosition() }, (results, status) => {
-          if (status === 'OK' && results[0]) {
-            document.getElementById('origen').value = results[0].formatted_address;
-          }
-        });
-      });
-      markerDestino.addListener('dragend', () => {
-        geocoder.geocode({ location: markerDestino.getPosition() }, (results, status) => {
-          if (status === 'OK' && results[0]) {
-            document.getElementById('destino').value = results[0].formatted_address;
-          }
-        });
-      });
-
-      // Autocompletar con Google Places
-      const inputOrigen = document.getElementById('origen');
-      const autocompleteOrigen = new google.maps.places.Autocomplete(inputOrigen);
-      autocompleteOrigen.bindTo('bounds', mapOrigen);
-      autocompleteOrigen.addListener('place_changed', () => {
-        const place = autocompleteOrigen.getPlace();
-        if (!place.geometry) return;
-        mapOrigen.setCenter(place.geometry.location);
-        mapOrigen.setZoom(15);
-        markerOrigen.setPosition(place.geometry.location);
-      });
-
-      const inputDestino = document.getElementById('destino');
-      const autocompleteDestino = new google.maps.places.Autocomplete(inputDestino);
-      autocompleteDestino.bindTo('bounds', mapDestino);
-      autocompleteDestino.addListener('place_changed', () => {
-        const place = autocompleteDestino.getPlace();
-        if (!place.geometry) return;
-        mapDestino.setCenter(place.geometry.location);
-        mapDestino.setZoom(15);
-        markerDestino.setPosition(place.geometry.location);
-      });
+  const opciones = document.querySelectorAll('.option');
+  let seleccionadas = [];
+  let total = 0;
+  opciones.forEach(op => {
+    if (op.checked) {
+      const precio = parseFloat(op.dataset.price);
+      const nombreServicio = op.dataset.name;
+      seleccionadas.push(`${nombreServicio} (${precio} €)`);
+      total += precio;
     }
+  });
 
-    function enviarSolicitud() {
-      const nombre = document.getElementById('nombre').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const origen = document.getElementById('origen').value.trim();
-      const destino = document.getElementById('destino').value.trim();
-      const notas = document.getElementById('notas').value.trim();
+  if (seleccionadas.length === 0) {
+    alert('Por favor, selecciona al menos un servicio.');
+    return;
+  }
 
-      if (!nombre || !telefono || !origen || !destino) {
-        alert('Por favor, completa todos los campos obligatorios.');
-        return;
-      }
-
-      const opciones = document.querySelectorAll('.option');
-      let seleccionadas = [];
-      opciones.forEach(op => {
-        if (op.checked) {
-          seleccionadas.push(op.dataset.name);
-        }
-      });
-
-      if (seleccionadas.length === 0) {
-        alert('Por favor, selecciona al menos un servicio.');
-        return;
-      }
-
-      const mensajeWhats = `Hola, soy ${nombre}.
+  const mensaje = `Hola, soy ${nombre}.
 Solicito presupuesto para:
 Servicios: ${seleccionadas.join(', ')}
 Dirección origen: ${origen}
@@ -207,16 +180,12 @@ Dirección destino: ${destino}
 Notas: ${notas}
 Número para contacto: ${telefono}`;
 
-      const numeroTuWhats = '34698373471';
-      const urlWhats = `https://wa.me/${numeroTuWhats}?text=${encodeURIComponent(mensajeWhats)}`;
-      window.open(urlWhats, '_blank');
+  const numeroTuWhats = '34698373471';
+  const urlWhats = `https://wa.me/${numeroTuWhats}?text=${encodeURIComponent(mensaje)}`;
+  window.open(urlWhats, '_blank');
 
-      document.getElementById('resultado').textContent = 'Se ha abierto WhatsApp con tu solicitud. Gracias por contactarnos.';
-    }
-
-    window.initMap = initMap;
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVPHqQDXL4vVijvq2vg3KeGKwgR-VDgu8&libraries=places&callback=initMap" async defer></script>
+  document.getElementById('resultado').textContent = 'Se ha abierto WhatsApp con tu solicitud. Gracias por contactarnos.';
+}
+</script>
 </body>
 </html>
