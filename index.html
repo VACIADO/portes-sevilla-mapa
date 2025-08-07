@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prueba Autocompletado Direcciones - Portes Sevilla</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f4f4;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>Selecciona direcciones con autocompletado</h1>
+
+  <label for="origen">Dirección Origen:</label>
+  <input id="origen" type="text" placeholder="Introduce dirección origen" />
+
+  <label for="destino">Dirección Destino:</label>
+  <input id="destino" type="text" placeholder="Introduce dirección destino" />
+
+  <script>
+    let autocompleteOrigen;
+    let autocompleteDestino;
+
+    function initAutocomplete() {
+      autocompleteOrigen = new google.maps.places.Autocomplete(
+        document.getElementById('origen'),
+        { types: ['geocode'], componentRestrictions: { country: 'es' } }
+      );
+
+      autocompleteDestino = new google.maps.places.Autocomplete(
+        document.getElementById('destino'),
+        { types: ['geocode'], componentRestrictions: { country: 'es' } }
+      );
+    }
+  </script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&libraries=places&callback=initAutocomplete"
+    async
+    defer
+  ></script>
+</body>
+</html>
